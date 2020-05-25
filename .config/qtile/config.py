@@ -1,26 +1,31 @@
-# -*- coding: utf-8 -*-
-#  ____ _____ 
-# |  _ \_   _|  Derek Taylor (DistroTube)
-# | | | || |    http://www.youtube.com/c/DistroTube
-# | |_| || |    http://www.gitlab.com/dwt1/
-# |____/ |_|
-#        
-# A customized config.py for Qtile window manager (http://www.qtile.org)     
-# Modified by Derek Taylor (http://www.gitlab.com/dwt1/ )
+# Qtile window manager (http://www.qtile.org)     
+# Custom configuration by Angel Aguirre (http://www.instagram.com/angelo.lla/)
 #
-# The following comments are the copyright and licensing information from the default
-# qtile config. Copyright (c) 2010 Aldo Cortesi, 2010, 2014 dequis, 2012 Randall Ma,
-# 2012-2014 Tycho Andersen, 2012 Craig Barnes, 2013 horsik, 2013 Tao Sauvage
+# Copyright (c) 2010 Aldo Cortesi
+# Copyright (c) 2010, 2014 dequis
+# Copyright (c) 2012 Randall Ma
+# Copyright (c) 2012-2014 Tycho Andersen
+# Copyright (c) 2012 Craig Barnes
+# Copyright (c) 2013 horsik
+# Copyright (c) 2013 Tao Sauvage
 #
-# Permission is hereby granted, free of charge, to any person obtaining a copy of this
-# software and associated documentation files (the "Software"), to deal in the Software
-# without restriction, including without limitation the rights to use, copy, modify,
-# merge, publish, distribute, sublicense, and/or sell copies of the Software, and to
-# permit persons to whom the Software is furnished to do so, subject to the following
-# conditions:
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
 #
-# The above copyright notice and this permission notice shall be included in all copies
-# or substantial portions of the Software.
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
 
 ##### IMPORTS #####
 import os
@@ -348,12 +353,19 @@ def init_widgets_list():
                         foreground = colors["font_dark"],
                         background = colors["panel_bg"]
                         ),
+               widget.TextBox(
+                        text='[',
+                        foreground = colors["font_white"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
                widget.GroupBox(font="Ubuntu Bold",
                         fontsize = 9,
                         margin_y = 3,
                         margin_x = 0,
                         padding_y = 5,
-                        padding_x = 5,
+                        padding_x = 2,
                         borderwidth = 3,
                         active = colors["font_white"],
                         inactive = colors["font_white"],
@@ -367,92 +379,212 @@ def init_widgets_list():
                         foreground = colors["font_white"],
                         background = colors["panel_bg"]
                         ),
-               widget.Sep(
-                        linewidth = 0,
-                        padding = 40,
-                        foreground = colors["font_dark"],
-                        background = colors["panel_bg"]
+               widget.TextBox(
+                        text=']',
+                        foreground = colors["font_white"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
+               widget.TextBox(
+                        text='[',
+                        foreground = colors["window_name"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
                         ),
                widget.WindowName(
                         foreground = colors["window_name"],
                         background = colors["panel_bg"],
                         padding = 0
                         ),
+               widget.TextBox(
+                        text=']',
+                        foreground = colors["window_name"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
+               widget.TextBox(
+                        text='[',
+                        foreground = colors["pacman"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
                widget.Pacman(
                         execute = "alacritty",
                         update_interval = 1800,
-                        foreground = colors["font_dark"],
-                        background = colors["pacman"]
+                        foreground = colors["pacman"],
+                        background = colors["panel_bg"]
                         ),
                widget.TextBox(
                         text="Updates",
                         padding = 5,
-                        foreground=colors["font_dark"],
-                        background=colors["pacman"]
+                        foreground=colors["pacman"],
+                        background=colors["panel_bg"]
                         ),
                widget.TextBox(
-                        text="",
-                        foreground=colors["font_dark"],
-                        background=colors["memory"],
-                        padding = 0,
-                        fontsize=14
+                        text=']',
+                        foreground = colors["pacman"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
+               widget.TextBox(
+                        text='[',
+                        foreground = colors["memory"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
                         ),
                widget.Memory(
-                        foreground = colors["font_dark"],
-                        background = colors["memory"],
+                        foreground = colors["memory"],
+                        background = colors["panel_bg"],
                         padding = 5
+                        ),
+               widget.TextBox(
+                        text=']',
+                        foreground = colors["memory"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
+               widget.TextBox(
+                        text='[',
+                        foreground = colors["net"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
                         ),
                widget.Net(
                         interface = "enp2s0",
                         format = '{down} ↓↑ {up}',
-                        foreground = colors["font_dark"],
-                        background = colors["net"],
+                        foreground = colors["net"],
+                        background = colors["panel_bg"],
                         padding = 5
                         ),
                widget.TextBox(
+                        text=']',
+                        foreground = colors["net"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
+               widget.TextBox(
+                        text='[',
+                        foreground = colors["volume"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
+               widget.TextBox(
                        text=" Vol:",
-                        foreground=colors["font_dark"],
-                        background=colors["volume"],
+                        foreground=colors["volume"],
+                        background=colors["panel_bg"],
                         padding = 0
                         ),
                widget.PulseVolume(
-                        foreground = colors["font_dark"],
-                        background = colors["volume"],
+                        foreground = colors["volume"],
+                        background = colors["panel_bg"],
                         padding = 5
+                        ),
+               widget.TextBox(
+                        text=']',
+                        foreground = colors["volume"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
+               widget.TextBox(
+                        text='[',
+                        foreground = colors["sensors"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
                         ),
 	       widget.ThermalSensor(
 			tag_sensors = 'Core 0',
-			foreground = colors["font_dark"],
-			background = colors["sensors"],
+			foreground = colors["sensors"],
+			background = colors["panel_bg"],
 			padding = 5,
 			),
+               widget.TextBox(
+                        text=']',
+                        foreground = colors["sensors"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
+               widget.TextBox(
+                        text='[',
+                        foreground = colors["layout"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
                widget.CurrentLayoutIcon(
                         custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
-                        foreground = colors["font_dark"],
-                        background = colors["layout"],
+                        foreground = colors["layout"],
+                        background = colors["panel_bg"],
                         padding = 0,
                         scale=0.7
                         ),
                widget.CurrentLayout(
-                        foreground = colors["font_dark"],
-                        background = colors["layout"],
+                        foreground = colors["layout"],
+                        background = colors["panel_bg"],
                         padding = 5
+                        ),
+               widget.TextBox(
+                        text=']',
+                        foreground = colors["layout"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
+               widget.TextBox(
+                        text='[',
+                        foreground = colors["clock"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
                         ),
                widget.Clock(
-                        foreground = colors["font_dark"],
-                        background = colors["clock"],
-			format="%d/%m/%Y - [ %H:%M ]"
+                        foreground = colors["clock"],
+                        background = colors["panel_bg"],
+			format="%d/%m/%Y - %H:%M"
                         #format="%A, %B %d  [ %H:%M ]"
                         ),
+               widget.TextBox(
+                        text=']',
+                        foreground = colors["clock"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
+               widget.TextBox(
+                        text='[',
+                        foreground = colors["window_name"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
                widget.Systray(
-                        background=colors["current_tab_bg"],
+                        background=colors["panel_bg"],
                         padding = 5
+                        ),
+               widget.TextBox(
+                        text=']',
+                        foreground = colors["window_name"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
                         ),
                widget.Sep(
                         linewidth = 0,
                         padding = 10,
-                        foreground = colors["clock"],
-                        background = colors["clock"]
+                        foreground = colors["panel_bg"],
+                        background = colors["panel_bg"]
                         ),
               ]
     # Checking if the battery is plugged
@@ -460,13 +592,13 @@ def init_widgets_list():
     if psutil.sensors_battery() is not None:
 	       widgets_list.insert(
 	    		17,
-			widget.TextBox(
-			text='◀',
-			background = colors["sensors"],
-			foreground = colors["battery"],
-			padding=-2,
-			fontsize=25
-	           )
+			wwidget.TextBox(
+                        text='[',
+                        foreground = colors["battery"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
 	       )
 	       widgets_list.insert(
 			18,
@@ -479,12 +611,12 @@ def init_widgets_list():
 		   )
 	       )
 	       widgets_list[19] = widget.TextBox(
-				text='◀',
-				background = colors["battery"],
-				foreground = colors["layout"],
-				padding=-2,
-				fontsize=25
-				)
+                        text=']',
+                        foreground = colors["battery"],
+                        background = colors["panel_bg"],
+                        padding=0,
+                        fontsize=20
+                        ),
 
     return widgets_list
 
