@@ -84,11 +84,11 @@ keys = [
              ),
 
          ### Switch focus to specific monitor (out of three)
-         Key([mod], "w",
+         Key([mod], "a",
              lazy.to_screen(0),
              desc='Keyboard focus to monitor 1'
              ),
-         Key([mod], "e",
+         Key([mod], "s",
              lazy.to_screen(1),
              desc='Keyboard focus to monitor 2'
              ),
@@ -212,7 +212,7 @@ keys = [
              desc='Open the file manager: Thunar'
              ),
 	 Key(
-             [mod], "r",
+             [mod, "mod1"], "f",
              lazy.spawn("alacritty -e ranger"),
              desc='Open the file manager: Ranger'
              ),
@@ -258,20 +258,23 @@ keys = [
 ]
 
 ##### GROUPS #####
-group_names = [("WWW", {'layout': 'monadtall'}),
-               ("WWW2", {'layout': 'monadtall'}),
-               ("DEV", {'layout': 'monadtall'}),
-               ("DEV2", {'layout': 'max'}),
-               ("TERM", {'layout': 'bsp'}),
-               ("DOCS", {'layout': 'monadtall'}),
-               ("ALT1", {'layout': 'monadtall'}),
-               ("ALT2", {'layout': 'monadtall'})]
+group_names = [("WWW", {'layout': 'monadtall', 'key':'1'}),
+               ("WWW2", {'layout': 'monadtall', 'key':'2'}),
+               ("DEV", {'layout': 'monadtall', 'key':'3'}),
+               ("DEV2", {'layout': 'max', 'key':'4'}),
+               ("TERM", {'layout': 'bsp', 'key':'q'}),
+               ("DOCS", {'layout': 'monadtall', 'key':'w'}),
+               ("ALT1", {'layout': 'monadtall', 'key':'e'}),
+               ("ALT2", {'layout': 'monadtall', 'key':'r'})]
+
+for (name, kwargs) in group_names:
+    keys.append(Key([mod], str(kwargs['key']), lazy.group[name].toscreen()))        # Switch to another group
+    keys.append(Key([mod, "shift"], str(kwargs['key']), lazy.window.togroup(name))) # Send current window to another group	
+
+for (name, kwargs) in group_names:
+    del kwargs['key']
 
 groups = [Group(name, **kwargs) for name, kwargs in group_names]
-
-for i, (name, kwargs) in enumerate(group_names, 1):
-    keys.append(Key([mod], str(i), lazy.group[name].toscreen()))        # Switch to another group
-    keys.append(Key([mod, "shift"], str(i), lazy.window.togroup(name))) # Send current window to another group	
 
 ##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
 layout_theme = {"border_width": 2,
@@ -459,7 +462,7 @@ def init_widgets_list():
                         ),
                widget.Net(
                         interface = "enp2s0",
-                        format = '{down} ↓↑ {up}',
+                        format = '{interface}',
                         foreground = colors["net"],
                         background = colors["panel_bg"],
                         padding = 5
@@ -592,7 +595,7 @@ def init_widgets_list():
     if psutil.sensors_battery() is not None:
 	       widgets_list.insert(
 	    		17,
-			wwidget.TextBox(
+			widget.TextBox(
                         text='[',
                         foreground = colors["battery"],
                         background = colors["panel_bg"],
