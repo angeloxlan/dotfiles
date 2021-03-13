@@ -3,3 +3,4 @@ nitrogen --restore &
 brightnessctl set 100% &
 picom &
 pcloud &
+nm-applet &

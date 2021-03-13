@@ -1,4 +1,3 @@
-# Qtile window manager (http://www.qtile.org)     
 # Custom configuration by Angel Aguirre (http://www.instagram.com/angelo.lla/)
 #
 # Copyright (c) 2010 Aldo Cortesi
@@ -63,12 +62,17 @@ keys = [
              desc='Toggle through layouts'
              ),
          Key(
+             [mod, "shift"], "Tab",
+             lazy.prev_layout(),
+             desc='Toggle backwards through layouts'
+             ),
+         Key(
              [mod, "shift"], "c",
              lazy.window.kill(),
              desc='Kill active window'
              ),
          Key(
-             [mod, "shift"], "r",
+             [mod, "mod1"], "r",
              lazy.restart(),
              desc='Restart Qtile'
              ),
@@ -259,13 +263,13 @@ keys = [
 
 ##### GROUPS #####
 group_names = [("WWW", {'layout': 'monadtall', 'key':'1'}),
-               ("WWW2", {'layout': 'monadtall', 'key':'2'}),
+               ("WWW.", {'layout': 'monadtall', 'key':'2'}),
                ("DEV", {'layout': 'monadtall', 'key':'3'}),
-               ("DEV2", {'layout': 'max', 'key':'4'}),
+               ("DEV.", {'layout': 'max', 'key':'4'}),
                ("TERM", {'layout': 'bsp', 'key':'q'}),
                ("DOCS", {'layout': 'monadtall', 'key':'w'}),
-               ("ALT1", {'layout': 'monadtall', 'key':'e'}),
-               ("ALT2", {'layout': 'monadtall', 'key':'r'})]
+               ("ALT", {'layout': 'monadtall', 'key':'e'}),
+               ("ALT.", {'layout': 'monadtall', 'key':'r'})]
 
 for (name, kwargs) in group_names:
     keys.append(Key([mod], str(kwargs['key']), lazy.group[name].toscreen()))        # Switch to another group
@@ -347,12 +351,29 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 ##### WIDGETS #####
+"""widget.Pacman(
+                        execute = "alacritty",
+                        update_interval = 1,
+                        foreground = colors["pacman"],
+                        background = colors["panel_bg"]
+                        ),"""
+
 
 def init_widgets_list():
     widgets_list = [
                widget.Sep(
                         linewidth = 0,
-                        padding = 6,
+                        padding = 4,
+                        foreground = colors["font_dark"],
+                        background = colors["panel_bg"]
+                        ),
+	       widget.Image(
+                        background = colors["panel_bg"],
+			filename = "~/.config/qtile/icons/arch-logo.png"
+			),
+               widget.Sep(
+                        linewidth = 0,
+                        padding = 4,
                         foreground = colors["font_dark"],
                         background = colors["panel_bg"]
                         ),
@@ -397,6 +418,7 @@ def init_widgets_list():
                         fontsize=20
                         ),
                widget.WindowName(
+                        fmt = "{}",
                         foreground = colors["window_name"],
                         background = colors["panel_bg"],
                         padding = 0
@@ -414,12 +436,6 @@ def init_widgets_list():
                         background = colors["panel_bg"],
                         padding=0,
                         fontsize=20
-                        ),
-               widget.Pacman(
-                        execute = "alacritty",
-                        update_interval = 1800,
-                        foreground = colors["pacman"],
-                        background = colors["panel_bg"]
                         ),
                widget.TextBox(
                         text="Updates",
@@ -675,6 +691,7 @@ floating_layout = layout.Floating(float_rules=[
     {'wname': 'branchdialog'},  # gitk
     {'wname': 'pinentry'},  # GPG key password entry
     {'wmclass': 'ssh-askpass'},  # ssh-askpass
+    {'wname': 'galculator'},
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
