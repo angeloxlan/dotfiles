@@ -69,8 +69,8 @@ DISABLE_AUTO_TITLE="true"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    git
-    virtualenv
+    #git
+    #virtualenv
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -117,4 +117,4 @@ alias config='/usr/bin/git --git-dir=/home/angel/dotfiles/ --work-tree=/home/ang
 alias umatrix="unimatrix -n -s 96 -l 'o'"
 
 # EXPORTS
-export PATH="$PATH:$HOME/.config/composer/vendor/bin"
+#export PATH="$PATH:$HOME/.config/composer/vendor/bin"
