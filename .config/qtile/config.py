@@ -35,6 +35,8 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+import themes
+
 #### Defaults ####
 alt_key = "mod1" # mod1 = Alt key
 mod = "mod4" # mod4 = Windows Key
@@ -54,12 +56,8 @@ keys = [
         lazy.prev_layout(),
         desc='Toggle backwards through layouts'),
     Key([mod, "shift"], "c", lazy.window.kill(), desc="Kill focused window"),
-    Key([mod, alt_key], "r",
-        lazy.restart(),
-        desc='Restart Qtile'),
-    Key([mod, alt_key], "q",
-        lazy.shutdown(),
-        desc='Shutdowqn Qtile'),
+    Key([mod, "control"], "r", lazy.restart(), desc="Restart Qtile"),
+    Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"), 
 
     ## Window controls ##
 
@@ -162,31 +160,6 @@ keys = [
         desc='Decrease the brightness of the screen: Laptop'),
 ]
 
-#### Groups (Workspace like) ####
-group_names = [
-    ("WWW", {'layout': 'monadtall', 'key':'1'}),
-    ("WWW.", {'layout': 'monadtall', 'key':'2'}),
-    ("DEV", {'layout': 'monadtall', 'key':'3'}),
-    ("DEV.", {'layout': 'max', 'key':'4'}),
-    ("TERM", {'layout': 'bsp', 'key':'q'}),
-    ("DOCS", {'layout': 'monadtall', 'key':'w'}),
-    ("ALT", {'layout': 'monadtall', 'key':'e'}),
-    ("ALT.", {'layout': 'monadtall', 'key':'r'})
-]
-
-# Add the key shortcut to switch to any group
-for (name, kwargs) in group_names:
-    keys.append(Key([mod], str(kwargs['key']), lazy.group[name].toscreen()))        # Switch to another group
-    keys.append(Key([mod, "shift"], str(kwargs['key']), lazy.window.togroup(name))) # Send current window to another group
-
-# Remove the 'key' index from the dict
-# it's not needed to add the group name to the GroupBox
-for (name, kwargs) in group_names:
-    del kwargs['key']
-
-# Add the group name and layout type to the Group object
-groups = [Group(name, **kwargs) for name, kwargs in group_names]
-
 ##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
 layout_theme = {
     "border_width": 2,
@@ -196,16 +169,16 @@ layout_theme = {
 }
 
 layouts = [
-    # layout.Columns(border_focus_stack='#d75f5f'),
+    layout.MonadTall(**layout_theme),
     layout.Max(**layout_theme),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
     layout.Bsp(**layout_theme),
     layout.Matrix(**layout_theme),
-    layout.MonadTall(**layout_theme),
+    layout.Tile(**layout_theme),
+    # layout.Columns(border_focus_stack='#d75f5f'),
+    # Try more layouts by unleashing below layouts.
+    # layout.Stack(num_stacks=2),
     # layout.MonadWide(),
     # layout.RatioTile(),
-    layout.Tile(**layout_theme),
     # layout.TreeTab(),
     # layout.VerticalTile(),
     # layout.Zoomy(),
@@ -214,172 +187,20 @@ layouts = [
 
 #### Widgets Configuration
 widget_defaults = dict(
-    font='sans',
+    font='Source Code Pro',
     fontsize=12,
-    padding=3,
+    padding=0,
 )
 extension_defaults = widget_defaults.copy()
 
-#### Color for the widgets ####
-colors = {
-	"panel_bg"		    :["#2a292c", "#2a292c"], 	# panel background
-    "current_tab_bg"	:["#ff5555", "#ff5555"], 	# background for current screen tab
-    "font_dark"		    :["#2a292c", "#2a292c"], 	# font color for widgets
-	"font_white"		:["#ffffff", "#ffffff"],	# font color for group names
-    "current_border"	:["#ff5555", "#ff5555"], 	# border line color for current tab
-	"clock"			    :["#ff5555", "#ff5555"], 	# color for Clock and Date widget
-	"layout"		    :["#7bcfc4", "#7bcfc4"], 	# color for Layout Type widget
-	"pacman"		    :["#e3f5a3", "#e3f5a3"], 	# color for the Thermal Sensors widget
-	"net"			    :["#f0ec74", "#f0ec74"], 	# color for the Volume widget
-	"volume"		    :["#9996c6", "#9996c6"], 	# color for the Net widget
-	"memory"		    :["#db9356", "#db9356"], 	# color for the Memory widget
-	"sensors"		    :["#fc9083", "#fc9083"], 	# color for the Pacman widget
-	"battery"		    :["#98bae5", "#98bae5"], 	# color for the Bettery widget
-    "screen_border"		:["#ff5555", "#ff5555"], 	# border line color for windows
-    "even_widget"		:["#668bd7", "#668bd7"], 	# color for the even widgets
-    "window_name"		:["#ff5555", "#ff5555"]  	# window name
-}
+##### Dinamically add the widgets, key shortcuts for the groups and group names
 
-def init_widgets_list():
-    separator_cfg = {
-        'linewidth': 0,
-        'padding': 4,
-        'foreground': colors["font_dark"],
-        'background': colors["panel_bg"]
-    }
-    textbox_cfg = {
-        #'text'='[',
-        #'foreground' = colors["font_white"],
-        'background': colors["panel_bg"],
-        'padding': 0,
-        'fontsize': 20
-    }
-    widgets_wanted = {
-        'GroupBox': {
-            'font': "Ubuntu Bold",
-            'fontsize': 9,
-            'margin_y': 3,
-            'margin_x': 0,
-            'padding_y': 5,
-            'padding_x': 2,
-            'borderwidth': 3,
-            'active': colors["font_white"],
-            'inactive': colors["font_white"],
-            'rounded': False,
-            'highlight_color': colors["current_tab_bg"],
-            'highlight_method': "line",
-            'this_current_screen_border': colors["current_border"],
-            'this_screen_border': colors ["screen_border"],
-            'other_current_screen_border': colors["panel_bg"],
-            'other_screen_border': colors["panel_bg"],
-            'foreground': colors["font_white"],
-            'background': colors["panel_bg"]
-        },
-        'WindowName': {
-            'fmt': "{}",
-            'foreground': colors["window_name"],
-            'background': colors["panel_bg"],
-            'padding': 0
-        },
-        'Memory': {
-            'foreground': colors["memory"],
-            'background': colors["panel_bg"],
-            'padding': 5
-        },
-        'PulseVolume': {
-            'foreground': colors["volume"],
-            'background': colors["panel_bg"],
-            'padding': 5
-        },
-        'ThermalSensor': {
-            'tag_sensors': 'Core 0',
-            'foreground': colors["sensors"],
-            'background': colors["panel_bg"],
-            'padding': 5,
-        },
-        #'CurrentLayoutIcon',
-        'Battery': {
-            'foreground': colors["layout"],
-            'background': colors["panel_bg"],
-            'battery': 0,
-        },
-        'CurrentLayout': {
-            'foreground': colors["layout"],
-            'background': colors["panel_bg"],
-            'padding': 5
-        },
-        'Clock': {
-            'foreground': colors["clock"],
-            'background': colors["panel_bg"],
-            'format': "%d/%m/%Y - %H:%M"
-        },
-        'Systray': {
-            'foreground': colors["window_name"],
-            'background': colors["panel_bg"],
-            'padding': 5
-        },
-    }
-    widget_list = [
-        widget.Sep(**separator_cfg),
-        widget.Image(
-            background = colors["panel_bg"],
-			filename = "~/.config/qtile/icons/arch-logo.png"),
-        widget.Sep(**separator_cfg),
-    ]
-
-    for widget_name in widgets_wanted:
-        widget_list.append(widget.TextBox(text='[', foreground=widgets_wanted[widget_name]['foreground'],**textbox_cfg))
-        widget_tmp = getattr(widget, '%s' % widget_name)
-        widget_list.append(widget_tmp(**widgets_wanted[widget_name]))
-        widget_list.append(widget.TextBox(text=']', foreground=widgets_wanted[widget_name]['foreground'],**textbox_cfg))
-    
-    widget_list.append(widget.Sep(**separator_cfg))
-
-    return widget_list
-
-#screens = [
-#    Screen(
-#        top=bar.Bar(
-#            [
-#                widget.CurrentLayout(**widgets_wanted['CurrentLayout']),
-#                widget.GroupBox(),
-#                widget.Prompt(),
-#                widget.WindowName(),
-#                widget.Chord(
-#                    chords_colors={
-#                        'launch': ("#ff0000", "#ffffff"),
-#                    },
-#                    name_transform=lambda name: name.upper(),
-#                ),
-#                widget.TextBox("default config", name="default"),
-#                widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
-#                widget.Systray(),
-#                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-#                widget.QuickExit(),
-#            ],
-#            24,
-#        ),
-#    ),
-#]
-
-#screens = [
-#    Screen(
-#        top=bar.Bar(
-#            [
-#                widget.Sep(**separator_cfg),
-#                widget.Image(
-#                    background = colors["panel_bg"],
-#                    filename = "~/.config/qtile/icons/arch-logo.png"),
-#                widget.Sep(**separator_cfg),
-#                widget.GroupBox(**widgets_wanted['GroupBox']),
-#            ], 
-#            opacity=0.95, 
-#            size=20
-#        )
-#    )
-#]
-
-screens = [Screen(top=bar.Bar(widgets=init_widgets_list(), opacity=0.95, size=25))]
+## Add the key shortcut to switch to any group
+keys.extend(themes.bracket_pair.keys(mod))
+## Add the group name and layout type to the Group object
+groups = [Group(name, **kwargs) for name, kwargs in themes.bracket_pair.groups()]
+### Add the widgets to the screen bar
+screens = [Screen(top=bar.Bar(widgets=themes.bracket_pair.widgets(), opacity=0.95, size=25))]
 
 # Drag floating layouts.
 mouse = [
