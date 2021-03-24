@@ -1,20 +1,37 @@
 import os
 from libqtile import widget
-from libqtile.config import Key
+from libqtile.config import Key, Match
 from libqtile.lazy import lazy
 
 home = os.path.expanduser('~')
 
 #### Groups (Workspace like) ####
 group_names = [
-    ("WWW", {'layout': 'monadtall', 'key':'1'}),
-    ("WWW.", {'layout': 'monadtall', 'key':'2'}),
-    ("DEV", {'layout': 'monadtall', 'key':'3'}),
-    ("DEV.", {'layout': 'max', 'key':'4'}),
-    ("TERM", {'layout': 'bsp', 'key':'q'}),
-    ("DOCS", {'layout': 'monadtall', 'key':'w'}),
-    ("ALT", {'layout': 'monadtall', 'key':'e'}),
-    ("ALT.", {'layout': 'monadtall', 'key':'r'})
+    ("WWW", {
+        'layout': 'monadtall', 
+        'key':'1'}),
+    ("WWW.", {
+        'layout': 'monadtall', 
+        'key':'2'}),
+    ("DEV", {
+        'layout': 'monadtall', 
+        'key':'3'}),
+    ("DEV.", {
+        'layout': 'max', 
+        'key':'4'}),
+    ("TERM", {
+        'layout': 'bsp', 
+        'key':'q'}),
+    ("DOCS", {
+        'layout': 'monadtall', 
+        'key':'w'}),
+    ("ALT", {
+        'layout': 'monadtall', 
+        'key':'e'}),
+    ("ALT.", {
+        'layout': 'monadtall', 
+        'key':'r',
+        'matches': Match(wm_class='discord')})
 ]
 
 def widgets():
@@ -31,7 +48,6 @@ def widgets():
         "volume"		    :["#9996c6", "#9996c6"], 	# color for the Volume widget
         "memory"		    :["#db9356", "#db9356"], 	# color for the Memory widget
         "sensors"		    :["#fc9083", "#fc9083"], 	# color for the Thermal Sensors widget
-        "battery"		    :["#98bae5", "#98bae5"], 	# color for the Bettery widget
         "screen_border"		:["#ff5555", "#ff5555"], 	# border line color for windows
         "even_widget"		:["#668bd7", "#668bd7"], 	# color for the even widgets
         "window_name"		:["#ff5555", "#ff5555"]  	# window name
@@ -43,9 +59,10 @@ def widgets():
         'background': colors["panel_bg"]
     }
     textbox_cfg = {
+        'font': 'Ubunto Mono',
         'background': colors["panel_bg"],
         'padding': 0,
-        'fontsize': 20
+        'fontsize': 18
     }
 
     widgets_wanted = {
@@ -77,7 +94,7 @@ def widgets():
         },
         'CheckUpdates': {
             'distro': 'Arch_checkupdates',
-            'display_format': '↺ {updates}',
+            'display_format': '{updates}',
             'foreground': colors["updates"],
             'background': colors["panel_bg"],
             'padding': 0
@@ -97,13 +114,6 @@ def widgets():
             'foreground': colors["sensors"],
             'background': colors["panel_bg"],
             'padding': 5,
-        },
-        'Battery': {
-            'charge_char': '↑',
-            'discharge_char': '↓',
-            'foreground': colors["battery"],
-            'background': colors["panel_bg"],
-            'battery': 0,
         },
         'CurrentLayout': {
             'foreground': colors["layout"],
@@ -131,6 +141,8 @@ def widgets():
 
     for widget_name in widgets_wanted:
         widget_list.append(widget.TextBox(text='[', foreground=widgets_wanted[widget_name]['foreground'],**textbox_cfg))
+        if widget_name == 'CheckUpdates':
+            widget_list.append(widget.TextBox(text='↺', foreground=widgets_wanted[widget_name]['foreground'],**textbox_cfg))
         widget_tmp = getattr(widget, '%s' % widget_name)
         widget_list.append(widget_tmp(**widgets_wanted[widget_name]))
         widget_list.append(widget.TextBox(text=']', foreground=widgets_wanted[widget_name]['foreground'],**textbox_cfg))

@@ -29,11 +29,13 @@
 import os
 import subprocess
 from typing import List  # noqa: F401
-
+from libqtile import qtile
 from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+
+from random import randint
 
 import themes
 
@@ -136,8 +138,9 @@ keys = [
     Key([mod], "f",
         lazy.spawn(file_manager),
         desc='Open the default file manager'),
-    Key([mod, alt_key], "f",
-        lazy.spawn("alacritty -e ranger"),
+    Key([mod, "control"], "f",
+        lazy.spawn("urxvt -e ranger"), 
+        #lazy.function(lambda: qtile.cmd_spawn(terminal + ' -e ranger')),        
         desc='Open the file manager: Ranger'),
 
     #### Audio Controls
@@ -194,13 +197,15 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 ##### Dinamically add the widgets, key shortcuts for the groups and group names
-
+## Get the list available inside the 'themes' directory
+themes_list = [theme for theme in dir(themes) if not theme.startswith('__')]
+theme_obj = getattr(themes, '%s' % themes_list[randint(0, len(themes_list)-1)])
 ## Add the key shortcut to switch to any group
-keys.extend(themes.bracket_pair.keys(mod))
+keys.extend(theme_obj.keys(mod))
 ## Add the group name and layout type to the Group object
-groups = [Group(name, **kwargs) for name, kwargs in themes.bracket_pair.groups()]
+groups = [Group(name, **kwargs) for name, kwargs in theme_obj.groups()]
 ### Add the widgets to the screen bar
-screens = [Screen(top=bar.Bar(widgets=themes.bracket_pair.widgets(), opacity=0.95, size=25))]
+screens = [Screen(top=bar.Bar(widgets=theme_obj.widgets(), opacity=0.95, size=25))]
 
 # Drag floating layouts.
 mouse = [
@@ -219,7 +224,7 @@ main = None  # WARNING: this is deprecated and will be removed soon
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating(float_rules=[
+floating_layout = layout.Floating(border_focus='ffffff', float_rules=[
     # Run the utility of `xprop` to see the wm class and name of an X client.
     *layout.Floating.default_float_rules,
     Match(wm_class='confirmreset'),  # gitk
