@@ -59,10 +59,10 @@ def widgets():
         'background': colors["panel_bg"]
     }
     textbox_cfg = {
-        'font': 'Ubunto Mono',
+        'font': 'Source Code Pro Medium',
         'background': colors["panel_bg"],
         'padding': 0,
-        'fontsize': 18
+        'fontsize': 14
     }
 
     widgets_wanted = {

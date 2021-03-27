@@ -111,13 +111,13 @@ def widgets():
         },
         'WindowName': {
             'fmt': "{}",
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 0
         },
         'CheckUpdates': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'distro': 'Arch_checkupdates',
             'display_format': '{updates}',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
@@ -125,32 +125,32 @@ def widgets():
             'padding': 1
         },
         'Memory': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1
         },
         'PulseVolume': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1,
         },
         'ThermalSensor': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'tag_sensors': 'Core 0',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1,
         },
         'CurrentLayout': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1
         },
         'Clock': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'format': "%d/%m/%Y - %H:%M",
@@ -179,7 +179,7 @@ def widgets():
             widget_list.append(widget.TextBox(
                 text='↺',
                 foreground=fixed_colors['active'],
-                font='Ubunto Mono',
+                font='Ubuntu Mono',
                 background=fixed_colors["panel_group"],
                 padding=0,
                 fontsize=18))

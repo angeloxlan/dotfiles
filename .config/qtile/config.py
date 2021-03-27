@@ -205,7 +205,17 @@ keys.extend(theme_obj.keys(mod))
 ## Add the group name and layout type to the Group object
 groups = [Group(name, **kwargs) for name, kwargs in theme_obj.groups()]
 ### Add the widgets to the screen bar
-screens = [Screen(top=bar.Bar(widgets=theme_obj.widgets(), opacity=0.95, size=25))]
+## Get the bar configuration, if not, use default
+if hasattr(theme_obj, 'bar'):
+    bar_config = theme_obj.bar()
+else:
+    bar_config = {
+        'background': '#000000',
+        'margin': 0,
+        'opacity': 0.95,
+    }
+
+screens = [Screen(top=bar.Bar(widgets=theme_obj.widgets(), size=25, **bar_config))]
 
 # Drag floating layouts.
 mouse = [
