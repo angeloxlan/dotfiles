@@ -1,39 +1,40 @@
 ! special
-*.foreground:   #d2dbe0
-*.background:   #050606
-*.cursorColor:  #d2dbe0
+*.foreground:   #acd2e0
+*.background:   #090f11
+*.cursorColor:  #acd2e0
 
 ! black
-*.color0:       #090b0c
-*.color8:       #cb769e
+*.color0:       #11191b
+*.color8:       #6ab79b
 
 ! red
-*.color1:       #151719
-*.color9:       #d777a4
+*.color1:       #192225
+*.color9:       #997cd2
 
 ! green
-*.color2:       #25292b
-*.color10:      #9c7a63
+*.color2:       #273438
+*.color10:      #a991dd
 
 ! yellow
-*.color3:       #3c4245
-*.color11:      #70c0a7
+*.color3:       #3b4c52
+*.color11:      #bf6b98
 
 ! blue
-*.color4:       #596165
-*.color12:      #6d9386
+*.color4:       #536a72
+*.color12:      #578e9e
 
 ! magenta
-*.color5:       #7c878c
-*.color13:      #c9a084
+*.color5:       #718f99
+*.color13:      #577d88
 
 ! cyan
-*.color6:       #a4b3ba
-*.color14:      #5f8d7e
+*.color6:       #94b9c6
+*.color14:      #61a68c
 
 ! white
-*.color7:       #dde3e7
-*.color15:      #9db468
+*.color7:       #d2e6ed
+*.color15:      #5c917c
+
 
 !! URxvt Appearance
 URxvt.font: xft:Source Code Pro Medium:size=10
