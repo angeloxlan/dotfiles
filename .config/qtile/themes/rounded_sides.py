@@ -180,7 +180,7 @@ def widgets():
             font = 'Ubuntu Bold',
             foreground = fixed_colors["foreground"],
             background = fixed_colors["group_7"],
-            format = "%d/%m/%y - %h:%m",
+            format = "%d/%m/%Y - %H:%M",
             padding = 1),
         widget.Sep(background=fixed_colors["group_7"], foreground=fixed_colors["group_7"], **separator_cfg),
         widget.Image(
