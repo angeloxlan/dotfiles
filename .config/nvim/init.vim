@@ -56,4 +56,4 @@ endif
 colorscheme OceanicNext
 
 "" EmmetVim Config
-let g:user_emmet_leader_key='<C-z>'
+let g:user_emmet_leader_key='<C-c>'

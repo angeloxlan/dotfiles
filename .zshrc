@@ -71,14 +71,18 @@ DISABLE_AUTO_TITLE="true"
 plugins=(
     git
     virtualenv
+    zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+## User configuration
+# zsh-autosuggestions
+bindkey '^ ' autosuggest-accept
 
 # Autostart
-neofetch
+#neofetch
+.config/fm6000/fm6000 -f .config/fm6000/astro.txt -c random
 
 # Function to start the angelaguirre project
 function startproject() {
