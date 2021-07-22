@@ -46,14 +46,14 @@ group_names = [
 def widgets():
     #### Colors for the widgets ####
     fixed_colors = {
-        "panel_bg"          :["#2a292c", "#2a292c"], 	# panel background
+        "panel_bg"		    :["#2a292c", "#2a292c"], 	# panel background
         "panel_group"       :["#695f7c", "#695f7c"],    # panel grouping background
-        "current_tab_bg"    :["#ffffff", "#ffffff"], 	# background for current screen tab
-        "foreground"        :["#2a292c", "#2a292c"], 	# font color for group names
-        "active"            :["#ffffff", "#ffffff"],	# font color for group names when active (with opened windows)
-        "current_border"    :["#a7a7a7", "#a7a7a7"], 	# border line color for current tab (selected group)
+        "current_tab_bg"	:["#ffffff", "#ffffff"], 	# background for current screen tab
+        "foreground"		:["#2a292c", "#2a292c"], 	# font color for group names
+        "active"		    :["#ffffff", "#ffffff"],	# font color for group names when active (with opened windows)
+        "current_border"	:["#a7a7a7", "#a7a7a7"], 	# border line color for current tab (selected group)
         "inactive"          :["#49484b", "#49484b"],    # inactive group color when inactive (no windows opened)
-        "screen_border"     :["#ffffff", "#ffffff"], 	# border line color for windows
+        "screen_border"		:["#ffffff", "#ffffff"], 	# border line color for windows
     }
     rnd_colors = [
         ["#ffa0be", "#ffa0be"],
@@ -87,7 +87,7 @@ def widgets():
         'filename': f"{home}/.config/qtile/themes/img/cg_close_group.png",
         'scale': True
     }
-
+    clock_color = randint(0, len(rnd_colors)-1)
     widgets_wanted = {
         'GroupBox': {
             'font': "Font Awesome 5 Free",
@@ -109,15 +109,28 @@ def widgets():
             'foreground': fixed_colors["foreground"],
             'background': fixed_colors["panel_group"]
         },
-        'WindowName': {
-            'fmt': "{}",
-            'font': 'Ubunto Bold',
-            'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
+        'Spacer': {
+            'background': fixed_colors["panel_bg"],
+        },
+        'Clock': {
+            'font': 'Ubuntu Bold',
+            'foreground': rnd_colors[clock_color],
             'background': fixed_colors["panel_group"],
-            'padding': 0
+            'format': "%d/%m/%Y",
+            'padding': 1,
+        },
+        'Clock2': {
+            'font': 'Ubuntu Bold',
+            'foreground': rnd_colors[clock_color],
+            'background': fixed_colors["panel_group"],
+            'format': "%H:%M",
+            'padding': 1,
+        },
+        'Spacer2': {
+            'background': fixed_colors["panel_bg"],
         },
         'CheckUpdates': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'distro': 'Arch_checkupdates',
             'display_format': '{updates}',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
@@ -125,36 +138,29 @@ def widgets():
             'padding': 1
         },
         'Memory': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1
         },
         'PulseVolume': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1,
         },
         'ThermalSensor': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'tag_sensors': 'Core 0',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1,
         },
         'CurrentLayout': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1
-        },
-        'Clock': {
-            'font': 'Ubunto Bold',
-            'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
-            'background': fixed_colors["panel_group"],
-            'format': "%d/%m/%Y - %H:%M",
-            'padding': 1,
         },
         'Systray': {
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
@@ -173,19 +179,69 @@ def widgets():
     ]
     
     for widget_name in widgets_wanted:
-        widget_list.append(widget.Sep(**separator_cfg)),
-        widget_list.append(widget.Image(**image_sep_open))
-        if widget_name == 'CheckUpdates':
+        if widget_name not in ['Spacer', 'Spacer2', 'Clock2']:
+            widget_list.append(widget.Sep(**separator_cfg))
+            widget_list.append(widget.Image(**image_sep_open))
+        if widget_name == 'Clock':
             widget_list.append(widget.TextBox(
-                text='↺',
+                text='\uf073 ',
                 foreground=fixed_colors['active'],
-                font='Ubunto Mono',
+                font='Ubuntu Mono',
                 background=fixed_colors["panel_group"],
                 padding=0,
                 fontsize=18))
-        widget_tmp = getattr(widget, '%s' % widget_name)
+        if widget_name == 'Clock2':
+            widget_list.append(widget.TextBox(
+                text=' - \uf017 ',
+                foreground=fixed_colors['active'],
+                font='Ubuntu Mono',
+                background=fixed_colors["panel_group"],
+                padding=0,
+                fontsize=18))
+        if widget_name == 'CheckUpdates':
+            widget_list.append(widget.TextBox(
+                text='\uf019 ',
+                foreground=fixed_colors['active'],
+                font='Ubuntu Mono',
+                background=fixed_colors["panel_group"],
+                padding=0,
+                fontsize=18))
+        if widget_name == 'Memory':
+            widget_list.append(widget.TextBox(
+                text='\uf233 ',
+                foreground=fixed_colors['active'],
+                font='Ubuntu Mono',
+                background=fixed_colors["panel_group"],
+                padding=0,
+                fontsize=18))
+        if widget_name == 'PulseVolume':
+            widget_list.append(widget.TextBox(
+                text='\uf028 ',
+                foreground=fixed_colors['active'],
+                font='Ubuntu Mono',
+                background=fixed_colors["panel_group"],
+                padding=0,
+                fontsize=18))
+        if widget_name == 'ThermalSensor':
+            widget_list.append(widget.TextBox(
+                text='\uf134 ',
+                foreground=fixed_colors['active'],
+                font='Ubuntu Mono',
+                background=fixed_colors["panel_group"],
+                padding=0,
+                fontsize=18))
+        if widget_name == 'CurrentLayout':
+            widget_list.append(widget.CurrentLayoutIcon(
+            custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
+            foreground = fixed_colors["active"],
+            background = fixed_colors["panel_group"],
+            padding = 0,
+            scale = 0.7))
+        w_name = widget_name.rstrip('2')[:]
+        widget_tmp = getattr(widget, '%s' % w_name)
         widget_list.append(widget_tmp(**widgets_wanted[widget_name]))
-        widget_list.append(widget.Image(**image_sep_close))
+        if widget_name not in ['Spacer', 'Spacer2', 'Clock']:
+            widget_list.append(widget.Image(**image_sep_close))
     
     widget_list.append(widget.Sep(**separator_cfg))
 
@@ -209,12 +265,3 @@ def groups():
         del kwargs['key']
 
     return group_names_copy
-
-def bar():
-    bar_config = {
-        'background': '#ff000080',
-        'margin': 6,
-        'opacity': 0.75,
-    }
-
-    return bar_config

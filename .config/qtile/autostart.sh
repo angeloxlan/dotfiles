@@ -7,7 +7,7 @@ ALIST=( `ls -w1 $WALLPAPERS` )
 RANGE=${#ALIST[@]}
 let "number = $RANDOM % $RANGE"
 
-nitrogen --set-centered --save $WALLPAPERS/${ALIST[$number]}
+nitrogen --set-scaled --save $WALLPAPERS/${ALIST[$number]}
 brightnessctl set 100% &
 cbatticon -u 5 &
 picom &

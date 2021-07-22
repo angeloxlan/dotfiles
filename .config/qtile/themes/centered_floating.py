@@ -87,7 +87,7 @@ def widgets():
         'filename': f"{home}/.config/qtile/themes/img/cg_close_group.png",
         'scale': True
     }
-
+    clock_color = randint(0, len(rnd_colors)-1)
     widgets_wanted = {
         'GroupBox': {
             'font': "Font Awesome 5 Free",
@@ -109,12 +109,25 @@ def widgets():
             'foreground': fixed_colors["foreground"],
             'background': fixed_colors["panel_group"]
         },
-        'WindowName': {
-            'fmt': "{}",
-            'font': 'Ubunto Bold',
-            'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
+        'Spacer': {
+            'background': fixed_colors["panel_bg"],
+        },
+        'Clock': {
+            'font': 'Ubuntu Bold',
+            'foreground': rnd_colors[clock_color],
             'background': fixed_colors["panel_group"],
-            'padding': 0
+            'format': "%d/%m/%Y",
+            'padding': 1,
+        },
+        'Clock2': {
+            'font': 'Ubuntu Bold',
+            'foreground': rnd_colors[clock_color],
+            'background': fixed_colors["panel_group"],
+            'format': "%H:%M",
+            'padding': 1,
+        },
+        'Spacer2': {
+            'background': fixed_colors["panel_bg"],
         },
         'CheckUpdates': {
             'font': 'Ubunto Bold',
@@ -149,13 +162,6 @@ def widgets():
             'background': fixed_colors["panel_group"],
             'padding': 1
         },
-        'Clock': {
-            'font': 'Ubunto Bold',
-            'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
-            'background': fixed_colors["panel_group"],
-            'format': "%d/%m/%Y - %H:%M",
-            'padding': 1,
-        },
         'Systray': {
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
@@ -173,19 +179,69 @@ def widgets():
     ]
     
     for widget_name in widgets_wanted:
-        widget_list.append(widget.Sep(**separator_cfg)),
-        widget_list.append(widget.Image(**image_sep_open))
-        if widget_name == 'CheckUpdates':
+        if widget_name not in ['WindowName', 'WindowName2', 'Clock2']:
+            widget_list.append(widget.Sep(**separator_cfg)),
+            widget_list.append(widget.Image(**image_sep_open))
+        if widget_name == 'Clock':
             widget_list.append(widget.TextBox(
-                text='↺',
+                text='\uf073 ',
                 foreground=fixed_colors['active'],
-                font='Ubunto Mono',
+                font='Ubuntu Mono',
                 background=fixed_colors["panel_group"],
                 padding=0,
                 fontsize=18))
-        widget_tmp = getattr(widget, '%s' % widget_name)
+        if widget_name == 'Clock2':
+            widget_list.append(widget.TextBox(
+                text=' - \uf017 ',
+                foreground=fixed_colors['active'],
+                font='Ubuntu Mono',
+                background=fixed_colors["panel_group"],
+                padding=0,
+                fontsize=18))
+        if widget_name == 'CheckUpdates':
+            widget_list.append(widget.TextBox(
+                text='\uf019 ',
+                foreground=fixed_colors['active'],
+                font='Ubuntu Mono',
+                background=fixed_colors["panel_group"],
+                padding=0,
+                fontsize=18))
+        if widget_name == 'Memory':
+            widget_list.append(widget.TextBox(
+                text='\uf233 ',
+                foreground=fixed_colors['active'],
+                font='Ubuntu Mono',
+                background=fixed_colors["panel_group"],
+                padding=0,
+                fontsize=18))
+        if widget_name == 'PulseVolume':
+            widget_list.append(widget.TextBox(
+                text='\uf028 ',
+                foreground=fixed_colors['active'],
+                font='Ubuntu Mono',
+                background=fixed_colors["panel_group"],
+                padding=0,
+                fontsize=18))
+        if widget_name == 'ThermalSensor':
+            widget_list.append(widget.TextBox(
+                text='\uf134 ',
+                foreground=fixed_colors['active'],
+                font='Ubuntu Mono',
+                background=fixed_colors["panel_group"],
+                padding=0,
+                fontsize=18))
+        if widget_name == 'CurrentLayout':
+            widget_list.append(widget.CurrentLayoutIcon(
+            custom_icon_paths = [os.path.expanduser("~/.config/qtile/icons")],
+            foreground = fixed_colors["active"],
+            background = fixed_colors["panel_group"],
+            padding = 0,
+            scale = 0.7))
+        w_name = widget_name.rstrip('2')[:]
+        widget_tmp = getattr(widget, '%s' % w_name)
         widget_list.append(widget_tmp(**widgets_wanted[widget_name]))
-        widget_list.append(widget.Image(**image_sep_close))
+        if widget_name not in ['WindowName', 'WindowName2', 'Clock']:
+            widget_list.append(widget.Image(**image_sep_close))
     
     widget_list.append(widget.Sep(**separator_cfg))
 

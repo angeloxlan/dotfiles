@@ -142,13 +142,16 @@ keys = [
         lazy.spawn("urxvt -e ranger"), 
         #lazy.function(lambda: qtile.cmd_spawn(terminal + ' -e ranger')),        
         desc='Open the file manager: Ranger'),
+    Key([mod, "control"], "p",
+        lazy.spawn("flameshot gui"),
+        desc='Open flameshot to take a screenshot'),
 
     #### Audio Controls
     Key([], "XF86AudioLowerVolume",
-        lazy.spawn("/usr/bin/pulseaudio-ctl down -5"),
+        lazy.spawn("/usr/bin/pulseaudio-ctl down -2"),
         desc='Decrease the volume with phisical buttons'),
 	 Key([], "XF86AudioRaiseVolume",
-        lazy.spawn("/usr/bin/pulseaudio-ctl up -5"),
+        lazy.spawn("/usr/bin/pulseaudio-ctl up -2"),
         desc='Increase the volume with phisical buttons'),
 	 Key([], "XF86AudioMute",
         lazy.spawn("/usr/bin/pulseaudio-ctl mute"),
@@ -200,6 +203,7 @@ extension_defaults = widget_defaults.copy()
 ## Get the list available inside the 'themes' directory
 themes_list = [theme for theme in dir(themes) if not theme.startswith('__')]
 theme_obj = getattr(themes, '%s' % themes_list[randint(0, len(themes_list)-1)])
+#theme_obj = getattr(themes, '%s' % 'theme_name')
 ## Add the key shortcut to switch to any group
 keys.extend(theme_obj.keys(mod))
 ## Add the group name and layout type to the Group object
