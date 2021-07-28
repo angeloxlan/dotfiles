@@ -44,7 +44,7 @@ alt_key = "mod1" # mod1 = Alt key
 mod = "mod4" # mod4 = Windows Key
 #terminal = guess_terminal()
 terminal = "alacritty" # My terminal of choice
-browser = "brave"
+browser = "firefox"
 file_manager = "thunar"
 home = os.path.expanduser('~')
 
@@ -84,6 +84,12 @@ keys = [
     Key([mod], "m",
         lazy.layout.maximize(),
         desc='Toggle window between minimum and maximum sizes'),
+    Key([mod], "u",
+        lazy.layout.shrink(),
+        desc='Shrink the windows size'),
+    Key([mod], "i",
+        lazy.layout.grow(),
+        desc='Grow the windows size'),
 
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.

@@ -46,14 +46,14 @@ group_names = [
 def widgets():
     #### Colors for the widgets ####
     fixed_colors = {
-        "panel_bg"          :["#2a292c", "#2a292c"], 	# panel background
-        "panel_group"       :["#695f7c", "#695f7c"],    # panel grouping background
-        "current_tab_bg"    :["#ffffff", "#ffffff"], 	# background for current screen tab
-        "foreground"        :["#2a292c", "#2a292c"], 	# font color for group names
-        "active"            :["#ffffff", "#ffffff"],	# font color for group names when active (with opened windows)
-        "current_border"    :["#a7a7a7", "#a7a7a7"], 	# border line color for current tab (selected group)
+        "panel_bg"		    :["#2a292c", "#2a292c"], 	# panel background
+        "panel_group"       :["#2a292c", "#2a292c"],    # panel grouping background
+        "current_tab_bg"	:["#ffffff", "#ffffff"], 	# background for current screen tab
+        "foreground"		:["#2a292c", "#2a292c"], 	# font color for group names
+        "active"		    :["#ffffff", "#ffffff"],	# font color for group names when active (with opened windows)
+        "current_border"	:["#a7a7a7", "#a7a7a7"], 	# border line color for current tab (selected group)
         "inactive"          :["#49484b", "#49484b"],    # inactive group color when inactive (no windows opened)
-        "screen_border"     :["#ffffff", "#ffffff"], 	# border line color for windows
+        "screen_border"		:["#ffffff", "#ffffff"], 	# border line color for windows
     }
     rnd_colors = [
         ["#ffa0be", "#ffa0be"],
@@ -75,17 +75,10 @@ def widgets():
         'foreground': fixed_colors["foreground"],
         'background': fixed_colors["panel_bg"]
     }
-    image_sep_open = {
-        'margin': 0,
-        'background': fixed_colors["panel_bg"],
-        'filename': f"{home}/.config/qtile/themes/img/cg_open_group.png",
-        'scale': True
-    }
-    image_sep_close = {
-        'margin': 0,
-        'background': fixed_colors["panel_bg"],
-        'filename': f"{home}/.config/qtile/themes/img/cg_close_group.png",
-        'scale': True
+    separator_pipe = {
+        'padding': 5,
+        'foreground': fixed_colors["active"],
+        'background': fixed_colors["panel_bg"]
     }
     clock_color = randint(0, len(rnd_colors)-1)
     widgets_wanted = {
@@ -130,7 +123,7 @@ def widgets():
             'background': fixed_colors["panel_bg"],
         },
         'CheckUpdates': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'distro': 'Arch_checkupdates',
             'display_format': '{updates}',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
@@ -138,26 +131,26 @@ def widgets():
             'padding': 1
         },
         'Memory': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1
         },
         'PulseVolume': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1,
         },
         'ThermalSensor': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'tag_sensors': 'Core 0',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1,
         },
         'CurrentLayout': {
-            'font': 'Ubunto Bold',
+            'font': 'Ubuntu Bold',
             'foreground': rnd_colors[randint(0, len(rnd_colors)-1)],
             'background': fixed_colors["panel_group"],
             'padding': 1
@@ -174,14 +167,12 @@ def widgets():
                 margin=0,
                 background = fixed_colors["panel_bg"],
                 filename = f"{home}/.config/qtile/icons/arch-logo.png",
-                scale = True), 
-        widget.Sep(**separator_cfg),
+                scale = True),
     ]
     
     for widget_name in widgets_wanted:
         if widget_name not in ['Spacer', 'Spacer2', 'Clock2']:
-            widget_list.append(widget.Sep(**separator_cfg)),
-            widget_list.append(widget.Image(**image_sep_open))
+            widget_list.append(widget.TextBox(text='|', **separator_pipe)),
         if widget_name == 'Clock':
             widget_list.append(widget.TextBox(
                 text='\uf073 ',
@@ -240,8 +231,8 @@ def widgets():
         w_name = widget_name.rstrip('2')[:]
         widget_tmp = getattr(widget, '%s' % w_name)
         widget_list.append(widget_tmp(**widgets_wanted[widget_name]))
-        if widget_name not in ['Spacer', 'Spacer2', 'Clock']:
-            widget_list.append(widget.Image(**image_sep_close))
+        if widget_name in ['GroupBox','Clock2']:
+            widget_list.append(widget.TextBox(text='|', **separator_pipe)),
     
     widget_list.append(widget.Sep(**separator_cfg))
 
@@ -265,12 +256,3 @@ def groups():
         del kwargs['key']
 
     return group_names_copy
-
-def bar():
-    bar_config = {
-        'background': '#ff000080',
-        'margin': 6,
-        'opacity': 0.75,
-    }
-
-    return bar_config

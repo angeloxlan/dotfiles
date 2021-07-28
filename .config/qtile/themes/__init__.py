@@ -5,3 +5,4 @@
 from . import centered_rounded
 from . import centered_contrast
 from . import centered_floating
+from . import centered_pipes
