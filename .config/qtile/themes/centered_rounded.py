@@ -43,7 +43,7 @@ group_names = [
         'matches': Match(wm_class='discord')})
 ]
 
-def widgets():
+def widgets(main=True):
     #### Colors for the widgets ####
     fixed_colors = {
         "panel_bg"          :["#2a292c", "#2a292c"], 	# panel background
@@ -60,7 +60,7 @@ def widgets():
         "active"            :["#ffffff", "#ffffff"],	# font color for group names when active (with opened windows)
         "current_border"    :["#a7a7a7", "#a7a7a7"], 	# border line color for current tab (selected group)
         "inactive"          :["#49484b", "#49484b"],    # inactive group color when inactive (no windows opened)
-        "screen_border"     :["#ffffff", "#ffffff"], 	# border line color for windows
+        "screen_border"     :["#695f7c", "#695f7c"], 	# border line color for windows
     }
     separator_cfg = {
         'linewidth': 5,
@@ -231,6 +231,9 @@ def widgets():
             padding = 1),
         widget.Sep(background=fixed_colors["group_7"], foreground=fixed_colors["group_7"], **separator_cfg),
     ]
+
+    if not main:
+        del widget_list[35-1]
 
     return widget_list
 

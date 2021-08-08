@@ -43,7 +43,7 @@ group_names = [
         'matches': Match(wm_class='discord')})
 ]
 
-def widgets():
+def widgets(main=True):
     #### Colors for the widgets ####
     fixed_colors = {
         "panel_bg"		    :["#2a292c", "#2a292c"], 	# panel background
@@ -53,7 +53,7 @@ def widgets():
         "active"		    :["#ffffff", "#ffffff"],	# font color for group names when active (with opened windows)
         "current_border"	:["#a7a7a7", "#a7a7a7"], 	# border line color for current tab (selected group)
         "inactive"          :["#49484b", "#49484b"],    # inactive group color when inactive (no windows opened)
-        "screen_border"		:["#ffffff", "#ffffff"], 	# border line color for windows
+        "screen_border"		:["#695f7c", "#695f7c"], 	# border line color for windows
     }
     rnd_colors = [
         ["#ffa0be", "#ffa0be"],
@@ -98,7 +98,7 @@ def widgets():
             'this_current_screen_border': fixed_colors["current_border"],
             'this_screen_border': fixed_colors ["screen_border"],
             'other_current_screen_border': fixed_colors["panel_bg"],
-            'other_screen_border': fixed_colors["panel_bg"],
+            'other_screen_border': fixed_colors["screen_border"],
             'foreground': fixed_colors["foreground"],
             'background': fixed_colors["panel_group"]
         },
@@ -183,7 +183,7 @@ def widgets():
                 fontsize=18))
         if widget_name == 'Clock2':
             widget_list.append(widget.TextBox(
-                text=' - \uf017 ',
+                text='- \uf017 ',
                 foreground=fixed_colors['active'],
                 font='Ubuntu Mono',
                 background=fixed_colors["panel_group"],
@@ -233,8 +233,14 @@ def widgets():
         widget_list.append(widget_tmp(**widgets_wanted[widget_name]))
         if widget_name in ['GroupBox','Clock2']:
             widget_list.append(widget.TextBox(text='|', **separator_pipe)),
+        
+        if widget_name == 'Systray':
+            position_systray = len(widget_list)-1
     
     widget_list.append(widget.Sep(**separator_cfg))
+
+    if not main:
+        del widget_list[position_systray]
 
     return widget_list
 

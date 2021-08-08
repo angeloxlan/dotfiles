@@ -105,6 +105,16 @@ keys = [
     Key([mod, "control"], "k", 
         lazy.layout.grow_up(), 
         desc="Grow window up"),
+    
+    ### Switch focus to specific monitor (out of two)
+    Key([mod], "a",
+        lazy.to_screen(1),
+        desc='Keyboard focus to monitor 1'
+        ),
+    Key([mod], "s",
+        lazy.to_screen(0),
+        desc='Keyboard focus to monitor 2'
+        ),
 
     # Changing to floating windows
     Key([mod, "shift"], "f",
@@ -224,8 +234,12 @@ else:
         'margin': 0,
         'opacity': 0.95,
     }
+ 
+widget_list1 = theme_obj.widgets()
+widget_list2 = theme_obj.widgets(False)
 
-screens = [Screen(top=bar.Bar(widgets=theme_obj.widgets(), size=25, **bar_config))]
+screens = [Screen(top=bar.Bar(widgets=widget_list1, size=25, **bar_config)),
+            Screen(top=bar.Bar(widgets=widget_list2, size=25, **bar_config))]
 
 # Drag floating layouts.
 mouse = [
