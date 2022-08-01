@@ -1,7 +1,7 @@
 configuration {
  modi: "window,drun,combi";
- theme: "Arc-Dark";
  font: "Source Code Pro 10";
  combi-modi: "window,run";
 }
+@theme "Arc-Dark"
 @import "/usr/share/rofi/themes/Arc-Dark.rasi"

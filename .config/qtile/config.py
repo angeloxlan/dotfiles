@@ -44,7 +44,7 @@ alt_key = "mod1" # mod1 = Alt key
 mod = "mod4" # mod4 = Windows Key
 #terminal = guess_terminal()
 terminal = "alacritty" # My terminal of choice
-browser = "firefox"
+browser = "brave"
 file_manager = "thunar"
 home = os.path.expanduser('~')
 

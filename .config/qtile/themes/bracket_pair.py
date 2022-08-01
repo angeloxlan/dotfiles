@@ -15,7 +15,8 @@ group_names = [
         'key':'2'}),
     ("DEV", {
         'layout': 'monadtall', 
-        'key':'3'}),
+        'key':'3',
+        'matches': Match(wm_class='code')}),
     ("DEV.", {
         'layout': 'max', 
         'key':'4'}),

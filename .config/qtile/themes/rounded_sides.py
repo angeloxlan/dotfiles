@@ -19,7 +19,8 @@ group_names = [
     ("DEV", {
         'label': '\uf121', 
         'layout': 'monadtall', 
-        'key':'3'}),
+        'key':'3',
+        'matches': Match(wm_class='code')}),
     ("DEV.", {
         'label': '\uf3b2', 
         'layout': 'max', 

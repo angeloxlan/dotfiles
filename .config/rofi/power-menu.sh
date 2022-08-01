@@ -7,28 +7,28 @@
 # back to your editor.
 # https://www.reddit.com/r/qtools/comments/amswu9/autoloading_rofi_for_quick_themeing_experience/
 
-options="     lock
-    logout
-     sleep
-   hibernate
-    reboot
-   shutdown"
+options="lock 
+logout 
+sleep ⏾
+hibernate
+reboot ﰇ
+shutdown "
 themes_dir=$HOME/.config/rofi
 theme=${1:-$themes_dir/power-menu.rasi}
-selection=$(echo -e "${options}" | rofi -dmenu -config $theme -columns 6 -lines 1 -width 1000)
+selection=$(echo -e "${options}" | rofi -dmenu -config $theme -width 1000)
 
 case "${selection}" in
-    "     lock")
+    "lock ")
         dm-tool lock;;
-    "    logout")
+    "logout ")
         pkill qtile;;
-    "     sleep")
+    "sleep ⏾")
         dm-tool lock && systemctl suspend;;
-    "   hibernate")
+    "hibernate")
         dm-tool lock && systemctl hibernate;;
-    "    reboot")
+    "reboot ﰇ")
         systemctl reboot;;
-    "   shutdown")
+    "shutdown ")
         systemctl poweroff -i;;
 esac
 

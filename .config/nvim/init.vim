@@ -6,10 +6,12 @@ set number
 set cursorline
 
 " Set 4 space characters with the tab key
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 "smarttab
 
 " Enable Syntax hightlighting
 syntax on
+
+" Autoindent new lines
 
 "" Custom Config
 " Add empty lines below and above the cursor
@@ -34,6 +36,7 @@ call plug#end()
 set autochdir
 let g:NERDTreeChDirMode=0
 nmap <C-e> :NERDTreeToggle<CR>
+let NERDTreeShowLineNumbers=1
 
 "" Lightline Config
 let g:lightline = {
@@ -57,3 +60,5 @@ colorscheme OceanicNext
 
 "" EmmetVim Config
 let g:user_emmet_leader_key='<C-c>'
+
+"filetype indent off

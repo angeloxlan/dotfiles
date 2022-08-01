@@ -1,7 +1,5 @@
 /* -*- mode: css; -*- */
 configuration {
-    columns: 5;
-    lines: 1;
 }
 
 * {
@@ -27,57 +25,22 @@ configuration {
     alt-bg: @nord3;
     alt-fg: @nord6;
 
-    /* text-color: @nord15; */
-
-
-    /* active-background: #232731; */
-    /* active-foreground: @foreground; */
     normal-background: @background;
     normal-foreground: @foreground;
-    /* urgent-background: #232731; */
-    /* urgent-foreground: @foreground; */
 
-    /* alternate-active-background: @background; */
-    /* alternate-active-foreground: @foreground; */
     alternate-normal-background: @background;
     alternate-normal-foreground: @foreground;
-    /* alternate-urgent-background: @background; */
-    /* alternate-urgent-foreground: @foreground; */
-
-    /* selected-active-background: #232731; */
-    /* selected-active-foreground: @foreground; */
 
     selected-normal-background: @nord10;
 
     selected-normal-foreground: @alt-fg;
 
-    /* selected-urgent-background: #b4575e; */
-    /* selected-urgent-foreground: @foreground; */
-
-    /* region behind buttons */
     background-color: @nord6;
 
-
-    /* entire background color */
     background: @nord6;
     foreground: @nord10;
-    /* border-color: @nord14; */
     spacing: 2;
 }
-
-
-
-
-/* window { */
-/*     /\* border-color: @nord8; *\/ */
-/*     border: 4; */
-/*     padding: 100px; */
-/*     foreground: @nord5; */
-/*     /\* location: west; *\/ */
-/*     /\* anchor: west; *\/ */
-
-/*     /\* background-color: @nord0; *\/ */
-/* } */
 
 #window {
     background-color: @background;
@@ -99,11 +62,6 @@ configuration {
     padding: 1px;
 }
 
-/* #textbox { */
-/*     /\* text-color: @foreground; *\/ */
-/*     /\* text-color: #ffffff; *\/ */
-/* } */
-
 #listview {
     fixed-height: 0;
     border: 0px 0px 0px;
@@ -111,11 +69,17 @@ configuration {
     spacing: 0px;
     scrollbar: false;
     padding: 0px 0px 0px 0px;
+    columns: 6;
+    lines: 1;
 }
 
 #element {
     border: 0;
     padding: 10px 10px 10px 10px;
+}
+
+#element-text {
+    horizontal-align: 0.5;
 }
 
 #element.normal.normal {
@@ -162,5 +126,3 @@ configuration {
     background-color: @alternate-active-background;
     text-color: @alternate-active-foreground;
 }
-
-

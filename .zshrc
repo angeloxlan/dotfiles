@@ -125,3 +125,5 @@ alias vim="nvim"
 #export PATH="$PATH:$HOME/.config/composer/vendor/bin"
 export EDITOR=nvim
 export VISUAL=nvim
+
+export XDEBUG_CONFIG="idekey=VSCODE"

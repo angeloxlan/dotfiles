@@ -19,7 +19,8 @@ group_names = [
     ("DEV", {
         'label': '\uf121', 
         'layout': 'monadtall', 
-        'key':'3'}),
+        'key':'3',
+        'matches': Match(wm_class='code')}),
     ("DEV.", {
         'label': '\uf3b2', 
         'layout': 'max', 
@@ -244,7 +245,7 @@ def widgets(main=True):
             widget_list.append(widget.Image(**image_sep_close))
         
         if widget_name == 'Systray':
-            position_systray = len(widget_list)-1
+            position_systray = len(widget_list)-2
     
     widget_list.append(widget.Sep(**separator_cfg))
 
