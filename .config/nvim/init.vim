@@ -1,5 +1,6 @@
 """ NATIVE CONFIGURATION
 set nocompatible
+set encoding=UTF-8
 
 " Show line numbers of the file
 set number
@@ -29,6 +30,13 @@ Plug 'mattn/emmet-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-commentary'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'ryanoasis/vim-devicons'
+Plug 'airblade/vim-gitgutter'
+Plug 'neoclide/coc.nvim', {'branch':'release'}
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'mfussenegger/nvim-lint'
 
 call plug#end()
 
@@ -60,5 +68,20 @@ colorscheme OceanicNext
 
 "" EmmetVim Config
 let g:user_emmet_leader_key='<C-c>'
+
+"" coc.nvim
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" nvim-lint
+au BufWritePost lua require('lint').try_lint()
 
 "filetype indent off
