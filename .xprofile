@@ -3,9 +3,9 @@ hdmi=`xrandr | grep ' connected' | grep 'HDMI' | awk '{print $1}'`
 
 if [ "$hdmi" = "HDMI-1-0" ]; then
   # monitor up
-  xrandr --output eDP-1 --mode 1920x1080 --pos 0x1050 --rotate normal --output HDMI-1-0 --primary --mode 1680x1050 --pos 120x0 --rotate normal &
+  # xrandr --output eDP1 --mode 1920x1080 --pos 0x1050 --rotate normal --output HDMI-1-0 --primary --mode 1680x1050 --pos 120x0 --rotate normal &
   # monitor right
-  #xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-0 --primary --mode 1680x1050 --pos 1920x0 --rotate normal &
+  xrandr --output eDP1 --mode 1920x1080 --pos 0x0 --rotate normal --output HDMI-1-0 --primary --mode 1680x1050 --pos 1920x0 --rotate normal &
 fi
 
 # Get every wallpaper name in a list and get a random number
@@ -22,3 +22,7 @@ cbatticon -u 5 &
 picom &
 pcloud &
 nm-applet &
+
+xmodmap -e "keysym Alt_R = Multi_key"
+export GTK_IM_MODULE=xim
+export XMODIFIERS="@im=none

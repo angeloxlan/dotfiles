@@ -3,7 +3,8 @@ set nocompatible
 set encoding=UTF-8
 
 " Show line numbers of the file
-set number
+" set number
+set relativenumber
 set cursorline
 
 " Set 4 space characters with the tab key
@@ -12,7 +13,8 @@ set tabstop=8 softtabstop=0 expandtab shiftwidth=4 "smarttab
 " Enable Syntax hightlighting
 syntax on
 
-" Autoindent new lines
+" Scroll
+set scroll=5
 
 "" Custom Config
 " Add empty lines below and above the cursor
@@ -81,7 +83,24 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" nvim-lint
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+"" nvim-lint
 au BufWritePost lua require('lint').try_lint()
 
 "filetype indent off
+
+"" Telescope
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope git_files<cr>

@@ -28,7 +28,7 @@ font:
   normal:
     family: Source Code Pro Medium
     style: Regular
-  size: 7.5 
+  size: 10 
   offset:
     y: 2
 window:

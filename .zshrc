@@ -117,7 +117,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # ALIASES
-alias config='/usr/bin/git --git-dir=/home/angel/dotfiles/ --work-tree=/home/angel/'
+alias config='/usr/bin/git --git-dir=/home/angelo/.dotfiles/ --work-tree=/home/angelo/'
 alias umatrix="unimatrix -n -s 96 -l 'o'"
 alias vim="nvim"
 
